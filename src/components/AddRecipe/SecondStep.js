@@ -35,7 +35,8 @@ const fruit = [
 class IngredientSection extends Component{
   state = {
     name:'',
-    qty:0,
+    unit:'',
+    qty:1,
   }
 
   handleName = (v) => {
@@ -60,6 +61,15 @@ class IngredientSection extends Component{
             style={{'width':100}}
             value={this.state}
             onChange={this.handleName}
+          />
+          <AutoComplete
+            value={this.props.unit}
+            floatingLabelText="Unit"
+            filter={AutoComplete.fuzzyFilter}
+            dataSource={fruit}
+            maxSearchResults={5}
+            style={{'width':100}}
+
           />
           <AutoComplete
             value={this.props.name}
