@@ -22,7 +22,9 @@ export default class AddReceipe extends Component {
     finished: false,
     stepIndex: 0,
   };
-
+  updateForm = (data)=>{
+    this.setState({formData:{...this.state.formData, data}});
+  }
   handleChange = (event, index, value) => this.setState({value});
 
   dummyAsync = (cb) => {
@@ -56,19 +58,19 @@ export default class AddReceipe extends Component {
     switch (stepIndex) {
       case 0:
         return (
-          <FirstStep/>
+          <FirstStep updateForm={this.updateForm}/>
         );
       case 1:
         return (
-          <SecondStep/>
+          <SecondStep updateForm={this.updateForm}/>
          
         );
       case 2:
         return (
-          <ThirdStep/>
+          <ThirdStep updateForm={this.updateForm}/>
         );
       default:
-        return 'Mafy ma3loom!';
+        return;
     }
   }
 

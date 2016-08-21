@@ -32,57 +32,72 @@ const fruit = [
   'Watermelon',
 ];
 
-class IngredientSection extends Component{
-  state = {
-    name:'',
-    unit:'',
-    qty:1,
-  }
+const units = ['gram','kilo','cup','cloves','units','ml','litre','some']
 
-  handleName = (v) => {
-    this.setState({name:v})
+class IngredientRow extends Component{
+  render(){
+    return (
+      <div style={{'display':'block'}}>
+          <p style={{'display':'inline-block','margin':'0 10px'}}>{this.props.qty}</p>
+          <p style={{'display':'inline-block','margin':'0 10px'}}>{this.props.unit}</p>
+          <p style={{'display':'inline-block','margin':'0 10px'}}>{this.props.name}</p>
+      </div>
+    )
   }
-  handleQty = (v) => {
-    this.setState({qty:Number(v)})
+}
+
+class IngredientEntry extends Component{
+  state = {
+    qty:0,
+    unit:'',
+    name:''
+  }
+  handleName = (value) => {
+    this.setState({name:value})
+  }
+  handleQty = (e) => {
+    this.setState({qty:e.target.value})
+  }
+  handleUnit = (value) => {
+    this.setState({unit:value})
   }
   addNewIngredient = ()=>{
-
-    this.state.name && this.props.add({name:this.state.name, qty:this.state.qty})
+    this.state.qty && this.state.unit && this.state.name && this.props.add({...this.state});
   }
   render(){
+    console.log(this.state)
     return (
       <div>
           <TextField
+            value={this.state.default}
             floatingLabelText="QTY" 
             hintText="QTY"
             type="number"
-            value={this.props.qty}
             min="0"
             style={{'width':100}}
-            value={this.state}
-            onChange={this.handleName}
+            onChange={this.handleQty}
           />
           <AutoComplete
-            value={this.props.unit}
+            value={this.state.default}
             floatingLabelText="Unit"
             filter={AutoComplete.fuzzyFilter}
-            dataSource={fruit}
+            dataSource={units}
+            onNewRequest={this.handleUnit}
             maxSearchResults={5}
+            openOnFocus={true}
             style={{'width':100}}
-
           />
           <AutoComplete
-            value={this.props.name}
+            value={this.state.default}
             floatingLabelText="Ingredient"
             filter={AutoComplete.fuzzyFilter}
             dataSource={fruit}
             maxSearchResults={5}
-            onChange={this.handleQty}
+            onNewRequest={this.handleName}
           />
-          {
-            !this.props.name &&
-            <RaisedButton label="Add new ingredient" onTouchTap={this.addNewIngredient}  secondary={true}/>
-          }
+          
+          <RaisedButton label="Add new ingredient" onTouchTap={this.addNewIngredient}  secondary={true}/>
+
       </div>
     )
   }
@@ -93,7 +108,11 @@ export default class SecondStep extends Component {
     ingredients:[]
 	}
   addNewIngredient = (ingredient) => {
-    this.setState({ingredients:[...this.state.ingredients, ingredient]});
+    console.log('From Parent', ingredient, this.state.ingredients)
+    let n = this.state.ingredients;
+    n.push(ingredient)
+    console.log('New Value ',n)
+    this.setState({ingredients:n});
   }
 
 	render(){
@@ -101,10 +120,10 @@ export default class SecondStep extends Component {
 			<div>
           { 
             this.state.ingredients.map((ingredient, key)=>{
-              return <IngredientSection key={key}  {...ingredient} add={this.addNewIngredient} />
+              return <IngredientRow key={key}  {...ingredient} add={this.addNewIngredient} />
             })
           }
-          <IngredientSection {...{name:'', qty:1}} add={this.addNewIngredient} />
+          <IngredientEntry add={this.addNewIngredient} />
           
       
       </div>
