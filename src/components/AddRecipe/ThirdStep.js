@@ -11,7 +11,9 @@ export default class ThirdStep extends Component {
 	render(){
 		return(
 			<div>
-        <input type="file" />
+          <RaisedButton label="Choose file" labelPosition="before">
+            <input type="file" />
+          </RaisedButton>
       </div>
 		)
 	}

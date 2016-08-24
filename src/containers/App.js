@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as CounterActions from '../actions/CounterActions';
+import * as appActions from '../actions';
 import AddRecipe from '../components/AddRecipe';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
+
+
 import {
   pink700, pink900,
   pinkA200,
@@ -36,22 +38,16 @@ const customTheme = getMuiTheme({
 export default class App extends Component {
   render() {
     // we can use ES6's object destructuring to effectively 'unpack' our props
-    const { counter, actions } = this.props;
 
     return (
       <MuiThemeProvider muiTheme={customTheme}>
         <div className="main-app-container">
-            <AddRecipe counter={counter} actions={actions} />
+            <AddRecipe {...this.props} />
         </div>
       </MuiThemeProvider>
     );
   }
 }
-
-App.propTypes = {
-  counter: PropTypes.number.isRequired,
-  actions: PropTypes.object.isRequired
-};
 
 /**
  * Keep in mind that 'state' isn't the state of local object, but your single
@@ -60,7 +56,7 @@ App.propTypes = {
  */
 function mapStateToProps(state) {
   return {
-    counter: state.counter
+    appState: state.appState
   };
 }
 
@@ -73,8 +69,9 @@ function mapStateToProps(state) {
  * More info: http://redux.js.org/docs/api/bindActionCreators.html
  */
 function mapDispatchToProps(dispatch) {
+  console.log(dispatch);
   return {
-    actions: bindActionCreators(CounterActions, dispatch)
+    actions: bindActionCreators(appActions, dispatch)
   };
 }
 

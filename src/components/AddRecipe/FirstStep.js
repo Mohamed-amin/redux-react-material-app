@@ -6,25 +6,31 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 export default class FirstStep extends Component {
 	state ={
-		title:'amin',
-		serves:2,
-		difficulty:8,
-		description:'best',
+		title:'',
+		serves:0,
+		difficulty:0,
+		description:'',
 	}
 	handleSubmit = (e) => {
-		console.log(this.state)
-		// this.props.updateForm();
+		// console.log(this.state)
+		// this.props.actions.updateForm()
+	}
+	handlerq = (e) => {
+		// console.log(e)
+
+		this.props.actions.updateForm({title:e.target.value})
+		// console.log(this.props)
 	}
 	render(){
+		console.log('Rerender Triggered')
 		return(
 			<div>
               <TextField
                 hintText="recipe Title"
                 floatingLabelText="Title"
                 type="text"
-                onChange={(e)=>{this.setState({title:e.target.value})}} 
+                onChange={this.handlerq} 
                 fullWidth={true}
-                value={this.state.title}
               />
 
               <SelectField value={this.state.serves} onChange={(e,i,v)=>{this.setState({serves:v})}} floatingLabelText="Serves" fullWidth={true}>

@@ -116,6 +116,7 @@ export default class SecondStep extends Component {
   }
 
 	render(){
+    console.log(this.props)
 		return(
 			<div>
           { 
