@@ -52,8 +52,11 @@ class IngredientEntry extends Component{
     unit:'',
     name:''
   }
-  handleName = (value) => {
-    this.setState({name:value})
+  shouldComponentUpdate(np){
+    return false;
+  }
+  handleName = (v) => {
+    this.setState({name:v})
   }
   handleQty = (e) => {
     this.setState({qty:e.target.value})
@@ -65,7 +68,7 @@ class IngredientEntry extends Component{
     this.state.qty && this.state.unit && this.state.name && this.props.add({...this.state});
   }
   render(){
-    console.log(this.state)
+    console.log("SECOND GOT RERENDERED", this.props)
     return (
       <div>
           <TextField

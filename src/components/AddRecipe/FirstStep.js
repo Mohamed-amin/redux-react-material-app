@@ -11,18 +11,11 @@ export default class FirstStep extends Component {
 		difficulty:0,
 		description:'',
 	}
-	handleSubmit = (e) => {
-		// console.log(this.state)
-		// this.props.actions.updateForm()
-	}
-	handlerq = (e) => {
-		// console.log(e)
-
-		this.props.actions.updateForm({title:e.target.value})
-		// console.log(this.props)
+	handleSubmit = (e, i, v) => {
+		this.props.actions.updateForm({title:v})
 	}
 	render(){
-		console.log('Rerender Triggered')
+    console.log("FIRST GOT RERENDERED")
 		return(
 			<div>
               <TextField
@@ -33,13 +26,13 @@ export default class FirstStep extends Component {
                 fullWidth={true}
               />
 
-              <SelectField value={this.state.serves} onChange={(e,i,v)=>{this.setState({serves:v})}} floatingLabelText="Serves" fullWidth={true}>
+              <SelectField value={this.state.serves} floatingLabelText="Serves" fullWidth={true} onChange={this.handleSubmit}>
                 <MenuItem value={1} primaryText="1" />
                 <MenuItem value={2} primaryText="2" />
                 <MenuItem value={4} primaryText="4" />
                 <MenuItem value={8} primaryText="8" />
               </SelectField>
-              <SelectField value={this.state.difficulty} onChange={(e,i,v)=>{this.setState({difficulty:v})}} floatingLabelText="Difficulty" fullWidth={true}>
+              <SelectField value={this.state.difficulty}  floatingLabelText="Difficulty" fullWidth={true}>
                 <MenuItem value={1} primaryText="1" />
                 <MenuItem value={2} primaryText="2" />
                 <MenuItem value={4} primaryText="4" />
@@ -49,7 +42,6 @@ export default class FirstStep extends Component {
                 floatingLabelText="Description" 
                 hintText="Description"
                 value={this.state.description}
-                onChange={(e)=>{this.setState({description:e.target.value})}} 
                 multiLine={true}
                 rows={3}
                 rowsMax={7}

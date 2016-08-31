@@ -58,16 +58,16 @@ export default class AddReceipe extends Component {
     switch (stepIndex) {
       case 0:
         return (
-          <FirstStep updateForm={this.updateForm} {...this.props} />
+          <FirstStep updateForm={this.updateForm} {...this.props}  handleNext={this.handleNext} />
         );
       case 1:
         return (
-          <SecondStep updateForm={this.updateForm} {...this.props}/>
+          <SecondStep updateForm={this.updateForm} {...this.props} handleNext={this.handleNext} />
          
         );
       case 2:
         return (
-          <ThirdStep updateForm={this.updateForm} {...this.props}/>
+          <ThirdStep updateForm={this.updateForm} {...this.props} handleNext={this.handleNext} />
         );
       default:
         return;

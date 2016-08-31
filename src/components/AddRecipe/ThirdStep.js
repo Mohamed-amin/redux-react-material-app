@@ -9,6 +9,8 @@ export default class ThirdStep extends Component {
 		value:1
 	}
 	render(){
+    console.log("THIRD GOT RERENDERED")
+
 		return(
 			<div>
           <RaisedButton label="Choose file" labelPosition="before">
